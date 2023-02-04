@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { dogPictures } from "../assets/dog-pictures";
+import { useDogContext } from "../providers/DogProvider";
 
-// Todo: Get rid of Add Dog from Props
-export const CreateDogForm = ({
-  // ! Get rid of this from props
-  addDog,
-}) => {
+export const CreateDogForm = () => {
   const [nameInput, setNameInput] = useState(""); //! This state must stay, don't try and move it to context
   const [descriptionInput, setDescriptionInput] = useState(""); //! This state must stay, don't try and move it to context
   const [selectedImage, setSelectedImage] = useState(dogPictures.BlueHeeler); //! This state must stay, don't try and move it to context
+  const { addDog } = useDogContext();
 
   return (
     <form
@@ -24,8 +22,7 @@ export const CreateDogForm = ({
         setDescriptionInput("");
         setNameInput("");
         setSelectedImage(dogPictures.BlueHeeler);
-      }}
-    >
+      }}>
       <h4>Create a New Dog</h4>
       <label htmlFor="name">Dog Name</label>
       <input
@@ -44,15 +41,13 @@ export const CreateDogForm = ({
         value={descriptionInput}
         onChange={(e) => {
           setDescriptionInput(e.target.value);
-        }}
-      ></textarea>
+        }}></textarea>
       <label htmlFor="picture">Select an Image</label>
       <select
         id=""
         onChange={(e) => {
           setSelectedImage(e.target.value);
-        }}
-      >
+        }}>
         {Object.entries(dogPictures).map(([label, pictureValue]) => {
           return (
             <option value={pictureValue} key={pictureValue}>

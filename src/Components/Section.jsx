@@ -1,14 +1,18 @@
-//! Get rid of all props except 'children' and 'label'
+import { useDogContext } from "../providers/DogProvider";
+
 export const Section = ({
   label, // do not delete
   children, // do not delete
-  onClickFavorited,
-  onClickUnfavorited,
-  onClickCreateDog,
-  showComponent,
-  favoriteDogCount,
-  unfavoriteDogCount,
 }) => {
+  const {
+    onClickFavorited,
+    onClickUnfavorited,
+    onClickCreateDog,
+    showComponent,
+    favoriteDogCount,
+    unfavoriteDogCount,
+  } = useDogContext();
+
   return (
     <section>
       <div className="container-header">
@@ -19,8 +23,7 @@ export const Section = ({
             className={`selector ${
               showComponent === "favorite-dogs" && "active"
             }`}
-            onClick={onClickFavorited}
-          >
+            onClick={onClickFavorited}>
             favorited ( {favoriteDogCount} )
           </div>
 
@@ -29,16 +32,14 @@ export const Section = ({
             className={`selector ${
               showComponent === "unfavorite-dogs" && "active"
             }`}
-            onClick={onClickUnfavorited}
-          >
+            onClick={onClickUnfavorited}>
             unfavorited ( {unfavoriteDogCount} )
           </div>
           <div
             className={`selector ${
               showComponent === "create-dog-form" && "active"
             }`}
-            onClick={onClickCreateDog}
-          >
+            onClick={onClickCreateDog}>
             create dog
           </div>
         </div>
